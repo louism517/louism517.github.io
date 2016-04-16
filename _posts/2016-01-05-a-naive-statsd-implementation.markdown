@@ -2,7 +2,6 @@
 layout: post
 title:  "A (very) Naive Statsd Clone in Go"
 date:   2016-01-04 21:36:20 +0000
-categories: jekyll update
 ---
 Recently I had cause to write some Go code for the purpose of splurging a bunch of metrics to a third-party collector. The metrics in question would come in at irregular intervals and all that was required was a simple count of each.
 

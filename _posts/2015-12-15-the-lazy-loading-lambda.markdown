@@ -2,7 +2,6 @@
 layout: post
 title:  "The Lazy-Loading Lambda"
 date:   2015-12-15 21:36:20 +0000
-categories: jekyll update
 ---
 We've all seen Ruby code like this:
 
