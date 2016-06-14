@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Websites on a Shoestring"
+title:  "Websites on a Shoestring with the AWS Free Tier"
 date:   2016-04-01 21:36:20 +0000
 ---
 Mother-in-laws, they’re great aren’t they? My mother-in-law is an enterprising old soul, and runs a couple of businesses. For brownie points, I offered to maintain the websites for these businesses, and some time ago slung them on a VPS. The VPS provider has been surreptitiously hiking their prices ever since, so I thought it’d be a timely exercise to see just how much advantage can be taken of the AWS Free Tier. I’ll also take the opportunity to try out some hipster(-ish) tech, postulate an ill-conceived opinion and foist it upon you, dear reader, as fact.
