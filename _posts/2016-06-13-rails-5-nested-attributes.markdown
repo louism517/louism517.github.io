@@ -1,10 +1,9 @@
 ---
-layout: post
 title:  "Rails 5 API-only and Nested Attributes"
 date:   2016-06-13 21:36:20 +0000
 ---
 
-One of the new features bundled with Rails 5 is the ability to build an API-only Rails site. That is, a Rails site with no views or assets or turbolinks or anything else related to browser presentation. It’s a feature that was previously available through the use of the rails-api gem, which has now made its way into the Rails core. This is in part a nod towards the rise of microservices; services which, in their simplest form, will dish out some JSON, or XML, or protobuf, or whatever, to be consumed by another.
+One of the new features bundled with Rails 5 is the ability to build an API-only Rails site. That is, a Rails site with no views or assets or turbolinks, or indeed anything else related to browser presentation. It’s a feature that was previously available through the use of the rails-api gem, which has now made its way into the Rails core. This is in part a nod towards the rise of microservices; services which, in their simplest form, will dish out some JSON, or XML, or protobuf, or whatever, to be consumed by another.
 
 A useful approach is to then slap a Javascript framework (such as Angular, or Backbone) in front of the API, to render the information in a human-friendly manner. This not only allows developers to utilise the powerful browser-bending capabilities of these frameworks, but also nicely de-couples them from the backend.
 
@@ -14,7 +13,7 @@ Quick recap: *accepts_nested_attributes_for* is an ActiveRecord directive that a
 
 The particular API call which led to my impasse was the creation of an Event, which is made up of a number of Tasks. Here are the model definitions as they ended up:
 
-{% highlight ruby %}
+```ruby
 class Event < ApplicationRecord
   has_many :tasks
   accepts_nested_attributes_for :tasks, :allow_destroy => true
@@ -23,7 +22,7 @@ end
 class Task < ApplicationRecord
   belongs_to :event, optional: true
 end
-{% endhighlight %}
+```
 
 The Event model defines a *has_many* relationship with Tasks, and states that it will accept nested attributes to create those tasks. It also allows the deletion of nested Tasks, through the `:allow_destroy` option.
 
@@ -33,37 +32,39 @@ The *accepts_nested_attributes_for* method actually causes an ‘attribute write
 
 This can be seen in the following example of a Post request that will create an Event with 2 nested Tasks:
 
-{% highlight json %}
+```json
 {
-  "event" : {
-   "start_time" : "25 May 12:56",
-   "end_time" : "25 May 13:56",
-   "event_type" : “ReallyBusyEvent",
-   "name" : "My Smashing Event”,
-    "tasks_attributes" : [
-     {
-      "start_time" : "25 May 12:30",
-      "action" : “do_something"
-    },
-    {
-      "start_time" : "25 May 12:40",
-      "action" : “do_something_else"
-    }
-    ]
-  }
+   "event" : {
+      "name" : "My Smashing Event",
+      "event_type" : "ReallyBusyEvent",
+      "start_time" : "25 May 12:56",
+      "end_time" : "25 May 13:56"
+      "tasks_attributes" : [
+         {
+            "action" : "do_something",
+            "start_time" : "25 May 12:30"
+         },
+         {
+            "start_time" : "25 May 12:40",
+            "action" : "do_something_else"
+         }
+      ],
+   }
 }
-{% endhighlight %}
-
+```
 Except it won’t. Because first we have to bribe the doorman, Strong Parameters. Without this step, the request will simply be rejected off the bat when it fails the initial security screening.
 
 In the `app/controllers/events_controller.rb` file, we have:
-{% highlight go %}
-def event_params
-  params.require(:event).permit(:name, :event_type, :start_time, :end_time, tasks_attributes: [  :start_time, :action ] )
-end
-{% endhighlight %}
 
-Now the syntax here is somewhat counter-intuitive: it seems to suggest we expect a single array of a `:start_time, :action` pair. But in actuality it will expect an array of _objects_ (or hashes, once Rubyised) with keys `:start_time` and `:action`.
+```ruby
+def event_params
+  params.require(:event).permit(:name, :event_type, :start_time, :end_time, tasks_attributes: [  :id, :start_time, :action ] )
+end
+```
+
+Now the syntax here is somewhat counter-intuitive: it seems to suggest we expect a single array of `:id, :start_time, :action`. But in actuality it will expect an array of _objects_ (or hashes, once Rubyised) with keys `:start_time` and `:action`.
+
+Note the inclusion of the `:id` parameter too (and its absence in our JSON above), without this you'll find that any _updates_ result in new nested attributes being created instead of amending those that already exist. 
 
 And that’s it. With these formalities dispensed, you can start crafting JSON requests to create nested attributes against your Rails 5 API-only site.
 

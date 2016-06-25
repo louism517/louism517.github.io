@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "A (very) Naive Statsd Clone in Go"
 date:   2016-01-04 21:36:20 +0000
 ---
@@ -11,7 +10,7 @@ The truth is it was refreshingly easy. So much so that I fear I'm in danger of b
 
 The following code outputs to the screen instead of a metric collector but the premise remains the same: have one goroutine deal with generating metrics, and another flushing them every 5 seconds.
 
-{% highlight go %}
+```go
 package main
 
 import (
@@ -49,8 +48,7 @@ func metricFlusher(ticker <- chan time.Time, metrics chan string) {
     }
   }
 }
-
-{% endhighlight %}
+```
 
 It is that simple. 
 
@@ -64,16 +62,18 @@ Back in the main goroutine (yep, `main()` is its own goroutine), we generate som
 
 Running this code outputs lines like this at 5 second intervals: 
 
-    my.useful.count 12
-    my.useful.count 14
-    my.useful.count 10
-    my.useful.count 15
+```
+my.useful.count 12
+my.useful.count 14
+my.useful.count 10
+my.useful.count 15
+```
 
 You can see that a varying number of metrics have been sent in each 5 second period, and they have all been properly aggregated. Success!
 
 We can make this somewhat more useful by accepting metrics with different names and aggregating a count of each. This can be achieved by replacing the `metricCount`er with a simple map, the keys of which will be the metric name and the values a count of the number of times the metric has been recorded.
 
-{% highlight go %}
+```go
 func metricFlusher(ticker <- chan time.Time, metrics chan string) {
   metricMap := map[string]int{} 
 
@@ -94,7 +94,7 @@ func metricFlusher(ticker <- chan time.Time, metrics chan string) {
     }
   }
 }
-{% endhighlight %}
+```
 
 So there we have it, a naive take on the statsd counter. Obviously statsd offers far more, but hopefully this shows how easy it is to utilise Golang's concurrency facilities. 
 

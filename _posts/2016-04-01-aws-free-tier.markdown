@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Websites on a Shoestring with the AWS Free Tier"
 date:   2016-04-01 21:36:20 +0000
 ---
