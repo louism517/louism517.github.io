@@ -11,7 +11,7 @@ title                    : "Devops Diarist"
 title_separator          : "|"
 name                     : "Louis McCormack"
 description              : "Another Devops blog, just what the world needs."
-url                      : https://louism517.github.io 
+url                      : http://devopsdiarist.uk
 baseurl                  : # the subpath of your site, e.g. "/blog"
 gh_repo                  :
 teaser                   : # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
