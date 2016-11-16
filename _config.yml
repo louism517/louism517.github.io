@@ -8,7 +8,7 @@
 # Site Settings
 locale                   : "en-UK"
 title                    : "Devops Diarist"
-title_separator          : "|"
+title_separator          : '-'
 name                     : "Louis McCormack"
 description              : "Another Devops blog, just what the world needs."
 url                      : http://devopsdiarist.uk
