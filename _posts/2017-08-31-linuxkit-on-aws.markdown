@@ -3,7 +3,7 @@ title:  "Linuxkit on AWS, with Terraform"
 date:   2017-08-31 10:00:20 +0000
 ---
 
-The container revolution is well underway. The Dockeristas swept from their coastal hideouts to infiltrate and disrupt even the most entrenched orders of the old establishment. The democratisation of containers is almost complete and whilst battles rage over cloud orchestration, a new bearded general enters stage-left in the form of Linuxkit. Unassuming and relatively unheralded, Linuxkit could end up providing the bridge between containers and microkernels.
+The container revolution is well underway. The Dockeristas swept from their coastal hideouts to infiltrate and disrupt even the most entrenched orders of the old establishment. The democratisation of containers is almost complete and whilst battles rage over cloud orchestration, a new bearded general enters stage-left in the form of Linuxkit. Unassuming and relatively unheralded, [Linuxkit](https://github.com/linuxkit/linuxkit) could end up providing the bridge between containers and microkernels.
 
 A containerised application is bundled with everything it needs in the way of system libraries and software packages. So why bother replicating those libraries in the host OS? Not only does this mean shifting more bits around, it also leads to an increased surface area for attacks.
 
@@ -49,13 +49,13 @@ This yaml describes a set of specialised containers plugged together in a Lego-e
 
 It is divided into discrete sections, starting with the 'kernel' section that defines which kernel the OS should run. Each kernel is a Docker image containing the kernel along with a tarball of compiled modules. The kernels themselves are based on latest stable releases, with some patches back-ported from newer kernels. That same savvy developer is of course free to compile his or her own customised kernel should they see fit.
 
-The 'init' section defines the Docker images that go together to comprise everything required to get us to a stage where we can run containers. It is followed by the 'onboot' section; a list of images describing short-lived, one-shot services to be run on-boot (such as dhcpd, to get us an IP address) and finally the 'system' section, which will generally be long-running processes that actually give the machine a purpose (for example one could run nginx as a system service). 
+The 'init' section defines the Docker images that go together to comprise everything required to get us to a stage where we can run containers. It is followed by the 'onboot' section; a list of images describing short-lived, one-shot services to be run on-boot (such as dhcpd, to get us an IP address) and finally the 'system' section, which will generally be long-running processes that give the machine a purpose (for example one could run nginx as a system service). 
 
 So, lets take this yaml definition and turn it into something we can actually run on AWS. To do this we invoke the `moby build` command:
 
 `moby build -name aws -output raw -size 100M aws.yml`
 
-The tool will go off and pull any containers which are not immediately present. It then _unpacks_ the filesystem of each of the containers, does some shifting to make the whole thing palatable to the init process, and then bundles the lot into an initramfs (a compressed cpio archive). The initramfs, along with the kernel and kernel command line, is the build output. It is an entirely immutable Linux machine, with all system services baked in. The default size of 1G is overridden here, and even 100M is probably generous (in all honesty, I couldn't see the relevance of this option once it becomes an AMI).
+The tool will go off and pull any containers which are not immediately present. It _unpacks_ the filesystem of each of the containers, does some shifting to make the whole thing palatable to the init process, then bundles the lot into an initramfs (a compressed cpio archive). The initramfs, along with the kernel and kernel command line, is the build output. It is an entirely immutable Linux machine, with all system services baked in. The default size of 1G is overridden here, and even 100M is probably generous (in all honesty, I couldn't see the relevance of this option once it becomes an AMI).
 
 Let's stop and think about this for a moment: an entirely immutable system, coming in at around 50MB with nothing extraneous to that which is needed to run containers. The root filesystem is read-only, making it stateless and tamper-proof. The build itself takes a matter of seconds, and is eminently reproducible, making it an ideal candidate to pass through a CI system. Although we have added an SSH daemon, by default there is no login (not even a terminal unless you add a getty container). This is starting to feel like the fabled promised-land of _Proper Devops_...
 
@@ -63,7 +63,7 @@ Furthermore it is entirely possible, and probably expected, that you run somethi
 
 In order to run this image on AWS we need to turn it into an AMI. Going back to the `moby build` command above; apart from the name of the resulting image and the yaml defintion, we have also specified a size parameter and an output format. There are several different output formats to choose from, depending on which kind of host system the image is to be run. AWS AMIs require the `raw` output.
 
-We need to take that raw output and convert it to an AMI. Linuxkit makes this easily achievable through the `linuxkit push` command. Under the hood, the `linuxkit push` command does a few things: it uploads the raw disk to an S3 bucket, then initiates an import-snapshot job through VM Import/Export service (http://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-import-snapshot.html) to create an EBS snapshot from that raw disk image. Finally it creates an AMI using that snapshot.
+We need to take that raw output and convert it to an AMI. Linuxkit makes this easily achievable through the `linuxkit push` command. Under the hood, the `linuxkit push` command does a few things: it uploads the raw disk to an S3 bucket, then initiates an import-snapshot job through [VM Import/Export service](http://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-import-snapshot.html) to create an EBS snapshot from that raw disk image. Finally it creates an AMI using that snapshot.
 
 Clearly we’ll need an S3 bucket to upload to, but we also need to configure an IAM role called _vmimport_ and allow the Virtual Machine Import Export service to assume it. 
 
@@ -80,7 +80,7 @@ We’ll use [Terraform](https://www.terraform.io/) to manage these entities as n
         └── policy.tpl
 ```
 
-Paste the following into the `assume-role-policy.json` file (this allows the vmie service to assume the vmimport role):
+Paste the following into the `assume-role-policy.json` file (this allows the vmie service to assume the _vmimport_ role):
 
 ```
 {
@@ -221,7 +221,7 @@ resource "aws_instance" "linuxkit" {
 
 (You can put this in main.tf if you like, although it is now independent of the infrastructure set up before)
 
-This will boot up an AMI in EC2 Classic, which you should be able to log into using your local SSH key (assuming it can be found at ~/.ssh/id_rsa.pub), as root, on its external IP address: `ssh 54.227.66.666 -l root`
+This will boot up an AMI in EC2 Classic, which you should be able to log into using your local SSH key (assuming it can be found at `~/.ssh/id_rsa.pub`), as root, on its external IP address: `ssh 54.227.66.666 -l root`
 
 Unfortunately you can’t do a great deal, but perhaps that is the point. It is however illustrative to have a poke around, to highlight the properties of a machine built with Linuxkit...
 
