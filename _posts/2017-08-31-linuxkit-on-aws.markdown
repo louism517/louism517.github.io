@@ -45,11 +45,11 @@ trust:
 
 The `moby` tool will snaffle up this yaml and transmute it into a bootable image (such as an ISO).
 
-This yaml describes a set of specialised containers plugged together in a Lego-esque fashion to build a very small OS with just enough nous to run other (normal) containers. What's interesting here is the opportunity for innovation: a savvy developer could elect to write their own init system, add additional system components or even reduce the OS further (maybe they decide they don’t need containerd for instance). 
+This yaml describes a set of specialised containers plugged together in a Lego-esque fashion to build a very small OS with just enough nous to run other (normal) containers. What's interesting here is the opportunity for innovation: a savvy developer could elect to write their own init system, add additional system components or even reduce the OS further (maybe they decide they don’t need containerd for instance).
 
 It is divided into discrete sections, starting with the 'kernel' section that defines which kernel the OS should run. Each kernel is a Docker image containing the kernel along with a tarball of compiled modules. The kernels themselves are based on latest stable releases, with some patches back-ported from newer kernels. That same savvy developer is of course free to compile his or her own customised kernel should they see fit.
 
-The 'init' section defines the Docker images that go together to comprise everything required to get us to a stage where we can run containers. It is followed by the 'onboot' section; a list of images describing short-lived, one-shot services to be run on-boot (such as dhcpd, to get us an IP address) and finally the 'system' section, which will generally be long-running processes that give the machine a purpose (for example one could run nginx as a system service). 
+The 'init' section defines the Docker images that go together to comprise everything required to get us to a stage where we can run containers. It is followed by the 'onboot' section; a list of images describing short-lived, one-shot services to be run on-boot (such as dhcpd, to get us an IP address) and finally the 'system' section, which will generally be long-running processes that give the machine a purpose (for example one could run nginx as a system service).
 
 So, lets take this yaml definition and turn it into something we can actually run on AWS. To do this we invoke the `moby build` command:
 
@@ -61,11 +61,11 @@ Let's stop and think about this for a moment: an entirely immutable system, comi
 
 Furthermore it is entirely possible, and probably expected, that you run something like Docker or Kubernetes to enable dynamic scheduling of applications. So we are by no means limited only to the applications which are baked into the image.
 
-In order to run this image on AWS we need to turn it into an AMI. Going back to the `moby build` command above; apart from the name of the resulting image and the yaml defintion, we have also specified a size parameter and an output format. There are several different output formats to choose from, depending on which kind of host system the image is to be run. AWS AMIs require the `raw` output.
+In order to run this image on AWS we need to turn it into an AMI. Going back to the `moby build` command above; apart from the name of the resulting image and the yaml definition, we have also specified a size parameter and an output format. There are several different output formats to choose from, depending on which kind of host system the image is to be run. AWS AMIs require the `raw` output.
 
 We need to take that raw output and convert it to an AMI. Linuxkit makes this easily achievable through the `linuxkit push` command. Under the hood, the `linuxkit push` command does a few things: it uploads the raw disk to an S3 bucket, then initiates an import-snapshot job through [VM Import/Export service](http://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-import-snapshot.html) to create an EBS snapshot from that raw disk image. Finally it creates an AMI using that snapshot.
 
-Clearly we’ll need an S3 bucket to upload to, but we also need to configure an IAM role called _vmimport_ and allow the Virtual Machine Import Export service to assume it. 
+Clearly we’ll need an S3 bucket to upload to, but we also need to configure an IAM role called _vmimport_ and allow the Virtual Machine Import Export service to assume it.
 
 We’ll use [Terraform](https://www.terraform.io/) to manage these entities as not only is it in the title of this post, but it makes tidying everything up that much easier. So, given a directory structure that now looks like this:
 
@@ -184,7 +184,7 @@ resource "aws_iam_role_policy" "import_disk_image" {
 }
 ```
 
-Running `terraform apply` will result in the creation of an S3 buckets along with the requisite IAM permissions. Note the name of the bucket created, and substitute it in running this command:
+Running `terraform apply` will result in the creation of an S3 bucket along with the requisite IAM permissions. Note the name of the bucket created, and substitute it in running this command:
 
 `linuxkit -v push aws -bucket <YOUR_BUCKET_NAME> aws.raw`
 
@@ -225,11 +225,11 @@ This will boot up an AMI in EC2 Classic, which you should be able to log into us
 
 Unfortunately you can’t do a great deal, but perhaps that is the point. It is however illustrative to have a poke around, to highlight the properties of a machine built with Linuxkit...
 
-First thing to note is that you are connected to the SSH container, _not_ the machine itself. Files and binaries available to the machine at large are not available within individual containers, unless they are explicitly mounted. 
+First thing to note is that you are connected to the SSH container, _not_ the machine itself. Files and binaries available to the machine at large are not available within individual containers, unless they are explicitly mounted.
 
 This can be seen with the aid of a slight detour into an explanation of how Linuxkit handles AWS metadata:
 
-Linuxkit’s metadata package will handle the metadata of VMs booted under different cloud providers. On AWS it extracts a certain amount of information from the [metadata service](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) upon boot, and makes it available under `/var/config` as files. These files can then be bind-mounted into individual containers. An example of this can be seen in our very own `aws.yml`, from above, where the authorized keys are mounted into the root home directory of the ssh container, allowing us to SSH as the root user. 
+Linuxkit’s metadata package will handle the metadata of VMs booted under different cloud providers. On AWS it extracts a certain amount of information from the [metadata service](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) upon boot, and makes it available under `/var/config` as files. These files can then be bind-mounted into individual containers. An example of this can be seen in our very own `aws.yml`, from above, where the authorized keys are mounted into the root home directory of the ssh container, allowing us to SSH as the root user.
 
 It’s natural (at least was to me) to try and look in this directory from the command line, however: `ls: /var/config: No such file or directory`.
 
