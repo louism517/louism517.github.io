@@ -11,7 +11,7 @@ title                    : "Devops Diarist"
 title_separator          : '-'
 name                     : "Louis McCormack"
 description              : "Another Devops blog, just what the world needs."
-url                      : http://devopsdiarist.uk
+url                      : https://devopsdiarist.uk
 #url                      : http://127.0.0.1:4000
 baseurl                  : # the subpath of your site, e.g. "/blog"
 gh_repo                  :
