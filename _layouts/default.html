@@ -1,31 +1,26 @@
----
-layout: compress
----
+<!DOCTYPE html>
+<html lang="en">
 
-{% include base_path %}
+{% include head.html %}
 
-<!doctype html>
-<html lang="{{ site.locale | slice: 0,2 }}" class="no-js">
-  <head>
-    {% include head.html %}
-    {% include head/custom.html %}
-  </head>
+<body>
 
-  <body>
+  {% if site.google-analytics %}
+    {% include google-analytics.html %}
+  {% endif %}
 
-    {% include browser-upgrade.html %}
-    {% include masthead.html %}
+  {% include header.html %}
 
+  <!-- begin content -->
+  <main class="content" aria-label="Content">
     {{ content }}
+  </main>
+  <!-- end content -->
 
-    <div class="page__footer">
-      <footer>
-        {% include footer/custom.html %}
-        {% include footer.html %}
-      </footer>
-    </div>
+  {% include footer.html %}
 
-    {% include scripts.html %}
+  <script src="{{ site.baseurl }}/js/scripts.js"></script>
+  <script src="{{ site.baseurl }}/js/common.js"></script>
+</body>
 
-  </body>
 </html>

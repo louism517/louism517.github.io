@@ -1,6 +1,10 @@
 ---
 title:  "Stubbing the Ruby AWS SDK, or Why Testing Rocks"
 date:   2017-01-10 10:00:20 +0000
+layout: post
+image:  '/images/testing-rocks.webp'
+tags: [Ruby, Programming]
+description: "An article about my conversion from testing Luddite to testing evangelist"
 ---
 
 When Gerrit Tamboer, editor of the [Devops College][devops-college] Medium publication, asked me to be a guest writer, I couldn't resist. I wrote an article about my conversion from testing Luddite to testing evangelist, with some specifics around stubbing the Ruby AWS SDK to develop entire applications without using any AWS resource.

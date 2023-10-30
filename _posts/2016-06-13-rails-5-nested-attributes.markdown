@@ -1,6 +1,9 @@
 ---
 title:  "Rails 5 API-only and Nested Attributes"
 date:   2016-06-13 21:36:20 +0000
+layout: post
+image:  '/images/rails.webp'
+tags: [Programming]
 ---
 
 One of the new features bundled with Rails 5 is the ability to build an API-only Rails site. That is, a Rails site with no views or assets or turbolinks, or indeed anything else related to browser presentation. It’s a feature that was previously available through the use of the rails-api gem, which has now made its way into the Rails core. This is in part a nod towards the rise of microservices; services which, in their simplest form, will dish out some JSON, or XML, or protobuf, or whatever, to be consumed by another.

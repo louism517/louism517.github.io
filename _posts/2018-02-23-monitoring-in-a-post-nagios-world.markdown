@@ -1,6 +1,10 @@
 ---
 title:  "Monitoring In a Post Nagios World"
 date:   2018-02-23 10:00:20 +0000
+layout: post
+image:  '/images/nagios.webp'
+description: "Monitoring is changing. It has been a glacial, unheralded change, driven by attitudinal shifts and technological advances..."
+tags: [Observability]
 ---
 
 Monitoring is changing. It has been a glacial, unheralded change, driven by attitudinal shifts and technological advances, but traditional monitoring systems such as Nagios are being usurped by metrics platforms and even machine learning. We are living in a post Nagios world....

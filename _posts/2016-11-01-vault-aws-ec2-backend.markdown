@@ -1,6 +1,9 @@
 ---
 title:  "Vault and the AWS EC2 Auth Backend"
 date:   2016-11-01 10:00:20 +0000
+layout: post
+image:  '/images/vault.jpeg'
+tags: [AWS, Hashicorp]
 ---
 
 In version 0.6.0 of Vault, Hashicorp introduced an AWS EC2 authentication backend. The [docs][vault-docs] provide a wealth of information, but it took me a few readings to discern the forest for the trees. Once I got past sniggering at the liberal use of the word _nonce_ (which has an altogether [different meaning][saville] in my corner of the world) I came to realise what a useful solution it can provide.

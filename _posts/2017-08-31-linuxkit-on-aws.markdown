@@ -1,6 +1,10 @@
 ---
 title:  "Linuxkit on AWS, with Terraform"
 date:   2017-08-31 10:00:20 +0000
+layout: post
+image:  '/images/terraform.png'
+description: "A look at Linuxkit, a new project from Docker, and how to run it on AWS with Terraform"
+tags: [Linux, AWS, Docker, Terraform]
 ---
 
 The container revolution is well underway. The Dockeristas swept from their coastal hideouts to infiltrate and disrupt even the most entrenched orders of the old establishment. The democratisation of containers is almost complete and whilst battles rage over cloud orchestration, a new bearded general enters stage-left in the form of Linuxkit. Unassuming and relatively unheralded, [Linuxkit](https://github.com/linuxkit/linuxkit) could end up providing the bridge between containers and microkernels.
