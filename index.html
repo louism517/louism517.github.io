@@ -1,16 +1,20 @@
 ---
-layout: archive
-author_profile: true
-header:
-  overlay_color: "#333"
+layout: default
+image: '/images/01.jpg'
 ---
 
-{% include base_path %}
+{% include hero.html %}
 
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts }}</h3>
+<div class="container">
+  <div class="row animate">
+    {% if site.posts.size > 0 %}
+      {% for post in paginator.posts %}
+        {% include article.html %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
 
-{% for post in paginator.posts %}
-  {% include archive-single.html %}
-{% endfor %}
+{% include pagination.html %}
 
-{% include paginator.html %}
+{% include section-tags.html %}

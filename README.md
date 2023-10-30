@@ -1,1 +1,3 @@
-Jekyll code for blog.
+## Blog
+
+Jekyll code for blog
