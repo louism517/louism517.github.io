@@ -5,7 +5,8 @@ logo: # You can add own logo. For example '/images/logo.png'.
 description: Louis McCormack is an engineering leader based in London
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://devopsdiarist.uk" # the base hostname & protocol for your site, e.g. http://example.com
-color_scheme: auto # You can choose three modes auto, light, and dark. By default, the auto mode is set, which means the user can choose the light or dark mode themself.
+color_scheme: auto # You can choose three modes auto, light, and dark. By default, the auto mode is set, which means
+                   # the user can choose the light or dark mode themself.
 
 
 #-------------------------------
@@ -43,7 +44,7 @@ mailchimp__button__text: Get a new tip
 #-------------------------------
 # Contact Settings
 contact:
-  email: louismccormack@hotmail.co.uk # Add your email for contant form
+  email: louis-mccormack@outlook.com # Add your email for contact form
   description: Menca comes with a built-in contact form, that you can use with Formspree service to handle up to 50 submissions per month for free. You could also easily switch to another contact form service if you want. # Add a description of your form
 
 # NOTE
