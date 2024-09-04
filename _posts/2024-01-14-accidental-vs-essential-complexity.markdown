@@ -21,8 +21,7 @@ its wonderfully flowery prose:
 transform unexpectedly from the familiar into horrors.
 
 They don't write 'em like that any more. But what have werewolves and silver bullets to do with software? 
-Well, the werewolf in this tale is **Complexity**, and the eponymous silver bullet is something which would _lay it to 
-rest_.
+Well, the werewolf in this tale is **Complexity**, and the eponymous silver bullet is _something_ that would 'lay it to rest'.
 
 Developers, by-and-large, do not set out to build complicated systems. Yet, like the universe tending towards entropy, 
 they have a knack of ending up that way. Can we learn anything from Brooks' paper to help avoid this?
