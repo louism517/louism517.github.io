@@ -18,10 +18,9 @@ It is a fascinating paper! Not only because it predicts many of the ensuing deve
 its wonderfully flowery prose:
 
 > Of all the monsters who fill the nightmares of our folklore, none terrify more than werewolves, because they 
-transform unexpectedly from the familiar into horrors. For these, we seek bullets of silver that can magically lay 
-them to rest.
+transform unexpectedly from the familiar into horrors.
 
-They don't write 'em like that any more. But what - _what_!? - have werewolves and silver bullets to do with software? 
+They don't write 'em like that any more. But what have werewolves and silver bullets to do with software? 
 Well, the werewolf in this tale is **Complexity**, and the eponymous silver bullet is something which would _lay it to 
 rest_.
 
@@ -33,8 +32,8 @@ they have a knack of ending up that way. Can we learn anything from Brooks' pape
 Software systems are complex entities. Perhaps, according to Brooks, the most complicated human constructs ever conceived. 
 It is this complexity which is the root of a lot of problems associated with the development and delivery of software.
 
-In all aspects of systems development complexity is killer, and perfidious. It leads to missed deadlines, unmaintainable 
-systems, and employee churn. It seems this was understood even back in 1987 - Brooks' paper is an enjoinder on different 
+Complexity is rife in all aspects of systems development, and perfidious. It leads to missed deadlines, unmaintainable 
+systems, and employee churn. It seems this was understood even back in 1987 - Brooks' paper is effectively a cogitation on different 
 ways to attack that complexity.
 
 Brooks identifies two types of complexity: **Essential** and **Accidental**.
