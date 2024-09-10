@@ -15,7 +15,7 @@ end of the Zero Interest Rate Period (ZIRP), and the glut of private equity inve
 The thinking goes like this: during a period of zero-percent interest rates, people in charge of _lots_ of money (think 
 fund managers or eccentric billionaires) will not see much of a return by consigning it to a bank account.
 
-Now, if there's one thing people with lots of money like, its _more_ money; so instead they find other ways to improve 
+Now, if there's one thing people with lots of money like, its more money; so instead they find other ways to improve 
 their lot. One of those ways is to bankroll tech companies: throw a few million each at a few hundred start-ups and, 
 like baby turtles ambling their way to the sea, hope that at least one of them survives.
 
@@ -29,13 +29,14 @@ So what has all this to do with architecture?
 
 In the talk, Gergely posits that businesses of all shapes and sizes will have to learn to do more with less. Less money 
 means less hiring means fewer engineers. With fewer engineers, the smart move is to narrow the scope of the technologies 
-they need to work with. Or, rather, the number of technologies they need to _know_. Not only does this reduce the 
+they need to work with. Or, rather, the number of technologies they need to know. Not only does this reduce the 
 cognitive load on the engineers, it also means that each individual is able to work on multiple areas of the stack.
 
-An example cited in the talk is Typescript. Whilst Typescript itself not _boring_, perhaps using *solely* Typescript 
+An example cited in the talk is Typescript. Whilst Typescript itself is not boring, perhaps using *solely* Typescript 
 could be considered so (if set against the plethora of other 'cool' technologies). Typescript is an inspired choice: we 
 pretty much _have_ to use it for the web, so why not then for mobile, and the backend? We can even use it for 
-infrastructure - the CDK uses Typescript natively.
+infrastructure - AWS' Cloud Development Kit (CDK) uses Typescript natively (and compiles to Terraform so is not limited 
+to just AWS).
 
 Similar sentiments have been raised by others:
 
@@ -50,7 +51,7 @@ that the storage layer can be switched out if/when the business grows.
 
 Now, none of this should be particularly unwelcome, especially if it leads to a reduction in *complexity*. It's long been 
 known that complexity is the silent killer, a form of organisational fat clogging up the arteries of tech teams everywhere. 
-Yet trends over the last decade (the ZIRP) have tended towards *more* complexity, not less.
+Yet trends over the last decade (the ZIRP) have tended towards more complexity, not less.
 
 We've witnessed the rise of architectural patterns such as Microservices, event-driven Serverless and even Kubernetes 
 that often do little to ameliorate the head-ache of complexity. I'm not saying that these things are _bad_ per se. If 
@@ -70,7 +71,7 @@ believing they need to be using it in order to further their careers.
 
 All the while the handle of complexity is silently being cranked.
 
-Whilst the pitfalls of complexity have _long_ [been known](https://louismccormack.com/accidental-vs-essential-complexity), 
+Whilst the pitfalls of complexity have long [been known](https://louismccormack.com/accidental-vs-essential-complexity), 
 the tide of public opinion is steadily resurfacing arguments against it. A book released by John Ousterhout, [A 
 Philosophy of Software Design](https://a.co/d/ecEG4y0), has gained a lot of traction. The book is framed as a battle 
 against complexity, where vigilance must be continually maintained. Also, we have seen robust discussion around the 
