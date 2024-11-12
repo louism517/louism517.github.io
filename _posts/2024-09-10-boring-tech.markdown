@@ -2,7 +2,7 @@
 layout: post
 title:  "The Return of Boring Tech"
 date:   2024-09-10 10:00:20 +0000
-image:  '/images/zirp-boring.webp'
+image:  '/images/zirp-boring.png'
 description: "In times of economic woe, an unlikely champion lumbers into view - Boring Tech"
 tags: [Software Engineering]
 ---
