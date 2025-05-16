@@ -38,7 +38,7 @@ Bash is of course OSS, and we can see the actual function code [here](https://gi
 
 The function signature of `readline()` looks like this:
 
-```
+```c
 /* Read a line of input.  Prompt with PROMPT.  An empty PROMPT means
    none.  A return value of NULL means that EOF was encountered. */
    
@@ -88,7 +88,7 @@ With `uprobes` we get access to the _actual arguments that the function was call
 
 Now, if we run that bpftrace command in one terminal session, and then hit return a couple of times in another, we should see some output like this:
 
-![Bpftrace Uprobe](/images/bpftrace-uprobe.png){:width="80%" }
+![Bpftrace Uprobe](/images/bpftrace-uprobe.png){:width="100%" }
 
 This is, of course, our prompt (the ever pliable PS1), which is nice...but not quite what we are looking for. We're building a key-logger, remember? We need to see the text that the user _entered_ in response to the prompt. We need the _return value_ of `readline`, and for that we need a slightly different breed of `uprobe`, a `uretprobe`.
 
@@ -102,7 +102,7 @@ Notice too that there is a slight change to the `printf` statement, we are now p
 
 If we run _this_ command in one terminal, and enter some commands in another we should see this:
 
-![Bpftrace Uretprobe](/images/bpftrace-uretprobe.png){:width="80%" }
+![Bpftrace Uretprobe](/images/bpftrace-uretprobe.png){:width="100%" }
 
 There - we are logging every bash command that any user across our system executes!
 
