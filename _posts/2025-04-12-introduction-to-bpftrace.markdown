@@ -15,7 +15,7 @@ Then along came Oracle. They acquired Sun Microsystems, closed-sourced Solaris, 
 
 Linux got Zones, in a big way. They eventually called it Docker and used it to revolutionise the way we deliver software.
 
-Linux also got ZFS, through OpenZFS (although, for political reasons involving those cheeky scamps at Oracle again, it is unlikely to ever be part of the mainline kernel.)
+Linux also got ZFS, through [OpenZFS](https://github.com/openzfs/zfs).
 
 But Linux never did get DTrace...Until now, that is.
 
@@ -65,8 +65,7 @@ $ objtool -T /bin/bash | grep readline
 
 A `bpftrace` probe which matches the `readline` symbol is constructed like this:
 
-uprobe:/bin/bash:readline
-uprobe - binary - symbol
+![Probe Anatomy](images/probe-anatomy.png){:width="100%"}
 
 And we can use that probe in a bpftrace program like:
 
