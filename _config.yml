@@ -1,64 +1,7 @@
 #-------------------------------
-# Site Settings
-title: Louis McCormack
-logo: # You can add own logo. For example '/images/logo.png'.
-description: Louis McCormack is an engineering leader based in London
+# General Site Settings
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://devopsdiarist.uk" # the base hostname & protocol for your site, e.g. http://example.com
-color_scheme: auto # You can choose three modes auto, light, and dark. By default, the auto mode is set, which means
-                   # the user can choose the light or dark mode themself.
-
-
-#-------------------------------
-# Author Settings
-author:
-  author__name: Louis McCormack
-  author__bio: London-based engineering leader
-  author__avatar: '/images/avatar-1.png'
-
-social:
-- {icon: "ion-logo-twitter", link: "https://twitter.com/louism517"}
-- {icon: "ion-logo-github", link: "https://github.com/louism517"}
-- {icon: "ion-logo-linkedin", link: "https://www.linkedin.com/in/louis-mccormack-0a6a615b/"}
-
-# Example of adding a new link to the footer - {icon: "ion-logo-dribbble", link: "https://dribbble.com"}
-# Other icons can be found at https://ionicons.com/v4/
-
-
-#-------------------------------
-# Hero Settings
-hero:
-  hero__title: Hey, I’m Louis McCormack
-  hero__description: I'm an engineering leader based in London. I'm passionate about distributed systems, building teams and helping people grow. This is my blog-cum-portfolio.
-  hero__image: '/images/city-scape.png'
-
-
-#-------------------------------
-# Newsletter
-mailchimp: disable # To enable the mailchimp form, use the value 'enable'. To disable the form, leave the field blank.
-mailchimp__identifier: frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3 # Add your MailChimp form identifier. For example - frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3
-mailchimp__input__text: Subscribe here
-mailchimp__button__text: Get a new tip
-
-
-#-------------------------------
-# Contact Settings
-contact:
-  email: louis-mccormack@outlook.com # Add your email for contact form
-  description: Menca comes with a built-in contact form, that you can use with Formspree service to handle up to 50 submissions per month for free. You could also easily switch to another contact form service if you want. # Add a description of your form
-
-# NOTE
-# Menca theme comes with a contact form built-in. You can use this form with Formspree (https://formspree.io/) service and get up to 50 submissions for free. Also, you can easily switch to another service if you want.
-
-
-#-------------------------------
-# Comment Section (Disqus)
-disqus-identifier: demo-menca # Add your shortname for Disqus Comment. For example demo-menca
-
-
-#-------------------------------
-# Google Analytics
-google-analytics: # Add your GA Tracking Id
 
 
 #-------------------------------

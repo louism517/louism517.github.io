@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "A Brief Introduction to bpftrace"
-date:   2025-04-12 10:00:20 +0000
-image:  '/images/ebpf-logo.svg'
+date:   2025-05-20 20:00:20 +0000
+image:  '/images/ebpf-logo.webp'
 description: "A simple initiation into the powers of eBPF"
 tags: [Software Engineering]
 ---
@@ -12,6 +12,8 @@ Early on in my career, I was a Solaris Systems Administrator.
 Solaris, we'd scoff, is far superior an Operating System to Linux. When asked why, we'd point to three things: Solaris Zones, ZFS, and DTrace.
 
 Then along came Oracle. They acquired Sun Microsystems, closed-sourced Solaris, ratcheted up licensing fees and laid off most of Sun's talent. Within a few short years, they had [killed Solaris](https://bcantrill.dtrace.org/2017/09/04/the-sudden-death-and-eternal-life-of-solaris/), leaving Linux to pick through the bones.
+
+![Solaris Logo](images/solaris-logo.png){:width="100%"}
 
 Linux got Zones, in a big way. They eventually called it Docker and used it to revolutionise the way we deliver software.
 
@@ -25,7 +27,7 @@ eBPF allows the running of sandboxed code in response to _events_ occurring (or,
 
 However, writing and running eBPF programs is a non-trivial exercise. It requires knowledge of C, and a learning curve steep enough to deter all but the most adventurous of engineers. But this is where `bpftrace` comes in: it acts as a front-end for eBPF. It allows one to specify probes and actions through a scripting language, and transparently handles the attaching of those probes into the kernel.
 
-The visibility and debugging powers that `bpftrace` provides are truly game-changing, and what better way to illustrate them than a pointless example: let's build a key-logger!
+The visibility and debugging powers that `bpftrace` provides are truly game-changing, and what better way to illustrate them than with a pointless example: let's build a key-logger!
 
 ## The Key Logger
 
@@ -45,7 +47,7 @@ The function signature of `readline()` looks like this:
 char * readline (const char *prompt)
 ```
 
-`readline` is a function that takes a string *prompt* - i.e. some message to prompt the user into entering some text - and returns a string. The string is the text that was duly entered by the prompted user, delimited by a carriage return. But don't take my word for that, let's observe it in action, using `bpftrace`.
+`readline` is a function that takes a string *prompt* - i.e. some message to prompt the user into entering some text - and returns a string. The string is the text that was duly entered by the prompted user, delimited by a carriage return. But don't take my word for it, let's observe it in action, using `bpftrace`.
 
 In order to do this, we'll use a certain flavour of eBPF probe, a `uprobe`.
 
@@ -75,7 +77,7 @@ bpftrace -e 'uprobe:/bin/bash:readline { printf("%s\n", str(arg0)) }
 
 Let's unpack this a little bit. 
 
-The `bpftrace -e` bit tells bpftrace to execute the following instruction, it makes this command a one-liner.
+The `bpftrace -e` bit tells bpftrace to execute the command that follows, it makes this command a one-liner.
 
 This is followed by our probe `uprobe:/bin/bash:readline`. 
 
@@ -94,10 +96,10 @@ This is, of course, our prompt (the ever pliable PS1), which is nice...but not q
 As you've maybe intuited, `uretprobes` work exactly the same way as `uprobes` except they fire when a function _returns_, not when it is called.
 
 ```bash
-bpftrace -e 'uretprobe:/bin/bash:readline { printf("%s\n", str(retval)) }'
+bpftrace -e 'uretprobe:/bin/bash:readline { printf("User %d entered %s\n", uid, str(retval)) }'
 ```
 
-Notice too that there is a slight change to the `printf` statement, we are now printing the value of `retval`. This is a bpftrace builtin which is set to the return value of the function being traced (in C, functions can only return a single value).
+Notice too that there is a slight change to the `printf` statement, we are now printing the value of `retval`. This is a bpftrace builtin which is set to the return value of the function being traced (in C, functions can only return a single value). For added bonus points we are also printing the `uid` of the user being key-logged.
 
 If we run _this_ command in one terminal, and enter some commands in another we should see this:
 
@@ -109,4 +111,4 @@ There - we are logging every bash command that any user across our system execut
 
 Now, clearly our key-logger isn't going to change anybody's life. BUT, let's just step back and reflect: we attached a probe that will fire whenever a particular user-space function is invoked. We were able to log both the function arguments _and_ its return value, and we did all this with a single one-liner. _And_ we've barely scratched the surface of what bpftrace can do, the possibilities are endless.
 
-When I discovered DTrace as a fresh-faced engineer, it opened a portal into a hitherto uncharted world. I could suddenly witness the inner workings of the OS, and its interactions with CPU, memory and hardware; it led me into a 20-year dalliance with systems programming and OS internals. My hope is that `bpftrace` can do the same for a new generation of engineers. Thanks for reading!
+When I discovered DTrace as a fresh-faced engineer, it opened a portal into a hitherto uncharted world. I could suddenly witness the inner workings of the OS, and its interactions with CPU, memory and hardware; it led me into a 20-year dalliance with systems programming and OS internals. I like to think that `bpftrace` can do the same for a new generation of engineers. Thanks for reading!
