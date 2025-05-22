@@ -25,7 +25,7 @@ Well, sort of. `bpftrace` _is_ the spiritual successor to DTrace. Like DTrace, i
 
 eBPF allows the running of sandboxed code in response to _events_ occurring (or, more properly, probes firing). This facilitates the tracing (and even modification) of any program running in both user-space and kernel-space. There are many resources out there for eBPF; it has its own [homepage](https://ebpf.io/), and even a [movie](https://www.youtube.com/watch?v=Wb_vD3XZYOA)!. 
 
-However, writing and running eBPF programs is a non-trivial exercise. It requires knowledge of C, and a learning curve steep enough to deter all but the most adventurous of engineers. But this is where `bpftrace` comes in: it acts as a front-end for eBPF. It allows one to specify probes and actions through a scripting language, and transparently handles the attaching of those probes into the kernel.
+However, writing and running eBPF programs is a non-trivial exercise. It requires knowledge of C, and a learning curve steep enough to deter all but the most adventurous of engineers. This is where `bpftrace` comes in: it acts as a front-end for eBPF. It allows one to specify probes and actions through a scripting language, and transparently handles the attaching of those probes into the kernel.
 
 The visibility and debugging powers that `bpftrace` provides are truly game-changing, and what better way to illustrate them than with a pointless example: let's build a key-logger!
 
@@ -34,7 +34,7 @@ The visibility and debugging powers that `bpftrace` provides are truly game-chan
 Our example will do one simple thing: log every bash command which is run by any user across our OS.
 
 But where to start? There must be a function which is responsible for reading bash commands from the terminal.
-We could use `bpftrace` to figure out which function is called when enter commands. But in the interests of keeping this article simple, let's just say there is a function, and it's called `readline`.
+We _could_ use `bpftrace` to figure out which function is called when entering commands. But in the interests of keeping this article simple, let's just say there is a function, and it's called `readline`.
 
 Bash is of course OSS, and we can see the actual function code [here](https://github.com/bminor/bash/blob/master/lib/readline/readline.c#L353).
 
@@ -47,7 +47,7 @@ The function signature of `readline()` looks like this:
 char * readline (const char *prompt)
 ```
 
-`readline` is a function that takes a string *prompt* - i.e. some message to prompt the user into entering some text - and returns a string. The string is the text that was duly entered by the prompted user, delimited by a carriage return. But don't take my word for it, let's observe it in action, using `bpftrace`.
+`readline` is a function that takes a string *prompt* - i.e. some message to prompt the user into entering some text - and returns a string. The string is the text that was duly entered by the prompted user, delimited by a newline. But don't take my word for it, let's observe it in action, using `bpftrace`.
 
 In order to do this, we'll use a certain flavour of eBPF probe, a `uprobe`.
 
@@ -77,7 +77,7 @@ bpftrace -e 'uprobe:/bin/bash:readline { printf("%s\n", str(arg0)) }
 
 Let's unpack this a little bit. 
 
-The `bpftrace -e` bit tells bpftrace to execute the command that follows, it makes this command a one-liner.
+The `bpftrace -e` bit tells bpftrace to execute the command that follows, making this a one-liner.
 
 This is followed by our probe `uprobe:/bin/bash:readline`. 
 
