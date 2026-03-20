@@ -57,7 +57,7 @@ LLMs do what humans tell them. Humans with no engineering _taste_ will inevitabl
 
 So where does that leave us?
 
-Well, here's the quiet part said out loud: despite all our fulminations about good engineering practices, the truth is, many engineers don't follow them anyway! At times, we've all been Tactical Programmers, because circumstances demanded it. The result is millions of existing codebases which are already a complete mess; no tests or documentation, riddled with unknown unknowns and completely in hock to institutional knowledge.
+Well, here's the quiet part said out loud: despite all our fulminations about good engineering practices, the truth is, many engineers don't follow them anyway! There are died-in-the-wool Tactical Programmers ouut there causing mayhem but, at times, we've all been Tactical Programmers (when circumstances demand). The result is millions of existing codebases which are already a complete mess; no tests or documentation, riddled with unknown unknowns and completely in hock to institutional knowledge.
 
 It is fanciful to believe that unsupervised LLMs will magically tame these codebases and be able to successfully improve or add to them. It does however seem eminently possible that _with_ human supervision, technical debt can be rapidly paid off: the cost of servicing the debt has just dropped dramatically.
 
@@ -67,4 +67,4 @@ And what about those new businesses: can you really imagine a software business 
 
 So where does this leave software engineers? Not obsolete, but transformed. The value we bring is shifting; from the ability to _produce_ code to the ability to _recognise_ good code. To smell complexity before it metastasises.
 
-LLMs are the ultimate Tactical Programmers. They'll make things work, beautifully, every time. But they don't know if they're building a cathedral or a sandcastle. That judgement — that _taste_ — is what decades of experience actually buys you. The question isn't whether we'll still need software engineers. It's whether we'll use these tools to finally become the Strategic Programmers we always claimed to be.
+LLMs are the ultimate Tactical Programmers. They'll make shit work, beautifully, every time. But they don't know if they're building a cathedral or a sandcastle. That judgement — that _taste_ — is what decades of experience actually buys you. The question isn't whether we'll still need software engineers. It's whether we'll use these tools to finally become the Strategic Programmers we always claimed to be.
