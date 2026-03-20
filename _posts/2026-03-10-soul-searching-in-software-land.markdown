@@ -57,7 +57,7 @@ LLMs do what humans tell them. Humans with no engineering _taste_ will inevitabl
 
 So where does that leave us?
 
-Well, here's the quiet part said out loud: despite all our fulminations about good engineering practices, the truth is, many engineers don't follow them anyway! There are died-in-the-wool Tactical Programmers ouut there causing mayhem but, at times, we've all been Tactical Programmers (when circumstances demand). The result is millions of existing codebases which are already a complete mess; no tests or documentation, riddled with unknown unknowns and completely in hock to institutional knowledge.
+Well, here's the quiet part said out loud: despite all our fulminations about good engineering practices, the truth is, many engineers don't follow them anyway! There are died-in-the-wool Tactical Programmers out there causing mayhem but, at times, we've all been Tactical Programmers (when circumstances demand). The result is millions of existing codebases which are already a complete mess; no tests or documentation, riddled with unknown unknowns and completely in hock to institutional knowledge.
 
 It is fanciful to believe that unsupervised LLMs will magically tame these codebases and be able to successfully improve or add to them. It does however seem eminently possible that _with_ human supervision, technical debt can be rapidly paid off: the cost of servicing the debt has just dropped dramatically.
 
